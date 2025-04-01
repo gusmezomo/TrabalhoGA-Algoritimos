@@ -79,7 +79,8 @@ public:
         Elemento* novo = alocarMemoria(valor);
 
         if (inicio == nullptr) {
-            inicio = fim = novo;
+            inicio = novo;
+            fim = novo;
         } else {
             novo->proximo = inicio;
             inicio->anterior = novo;
@@ -94,7 +95,8 @@ public:
         Elemento* novo = alocarMemoria(valor);
 
         if (inicio == nullptr) {
-            inicio = fim = novo;
+            inicio = novo;
+            fim = novo;
         } else {
             novo->anterior = fim;
             fim->proximo = novo;
@@ -104,53 +106,56 @@ public:
         tamanho++;
     }
 
-    // Insere um novo elemento em uma posição específica da lista
     void inserirPosicao(int valor, int posicao) {
         posicao = posicao - 1; // ajusta para índice base 0
         Elemento* novo = alocarMemoria(valor);
-
+    
         if (inicio == nullptr) {
-            inicio = fim = novo;
+            inicio = novo;
+            fim = novo;
         } else {
             Elemento* atual;
             int i;
-
-            // Escolhe o melhor lado para começar a busca (início ou fim)
+    
+            // Decidindo o ponto de início
             if (posicao < (tamanho / 2)) {
                 atual = inicio;
                 i = 0;
-                while (i < posicao && atual != nullptr) {
-                    atual = atual->proximo;
-                    i++;
-                }
             } else {
                 atual = fim;
-                i = tamanho - 1;
-                while (i > posicao && atual != nullptr) {
-                    atual = atual->anterior;
+                i = tamanho;
+            }
+    
+            // Percorrer para encontrar a posição (estilo original)
+            while ((i != posicao) && (i >= 0) && (i <= tamanho)) {
+                if (i < posicao) {
+                    i++;
+                    atual = atual->proximo;
+                } else if (i > posicao) {
                     i--;
+                    atual = atual->anterior;
                 }
             }
-
+    
             if (atual != nullptr) {
-                // Conecta o novo elemento na posição correta
+                // Inserir novo elemento antes de 'atual'
                 novo->anterior = atual->anterior;
                 novo->proximo = atual;
-
+    
                 if (atual->anterior != nullptr)
                     atual->anterior->proximo = novo;
                 else
                     inicio = novo;
-
+    
                 atual->anterior = novo;
                 tamanho++;
-
-                // Mostra os vizinhos do novo nó inserido
+    
                 cout << "Valor antecessor ao que desejo inserir: " << (novo->anterior ? novo->anterior->valor : -1) << endl;
                 cout << "Valor proximo ao que desejo inserir: " << (novo->proximo ? novo->proximo->valor : -1) << endl;
             }
         }
     }
+    
 
     // Imprime os valores da lista do início ao fim
     void imprimirLista() {
