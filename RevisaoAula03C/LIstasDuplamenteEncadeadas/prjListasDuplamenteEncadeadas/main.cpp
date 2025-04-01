@@ -11,12 +11,12 @@ private:
         Elemento* anterior;
     };
 
-    // Variáveis globais da versão original (inicio, fim, tamanho) agora são atributos privados
+    // Variáveis globais agora são atributos privados
     Elemento* inicio;
     Elemento* fim;
     int tamanho;
 
-    // Função auxiliar para alocar um novo nó (usa new, diferente do malloc em C)
+    // Função auxiliar para alocar um novo nó (usa new, diferente do malloc)
     Elemento* alocarMemoria(int valor) {
         Elemento* novo = new Elemento;
         novo->valor = valor;
@@ -74,7 +74,7 @@ public:
         }
     }
 
-    // Inserção no início — mesmo comportamento da versão C, agora encapsulado
+    // Inserção no início — agora encapsulado
     void inserirInicio(int valor) {
         Elemento* novo = alocarMemoria(valor);
 
@@ -118,7 +118,7 @@ public:
             Elemento* atual;
             int i;
     
-            // Mesma lógica de escolha do ponto de início da busca que existia no código original
+            // Mesma lógica de escolha do ponto de início da busca 
             if (posicao < (tamanho / 2)) {
                 atual = inicio;
                 i = 0;
@@ -151,14 +151,14 @@ public:
                 atual->anterior = novo;
                 tamanho++;
 
-                // Impressão dos vizinhos — também estava presente na versão original
+                // Impressão dos vizinhos
                 cout << "Valor antecessor ao que desejo inserir: " << (novo->anterior ? novo->anterior->valor : -1) << endl;
                 cout << "Valor proximo ao que desejo inserir: " << (novo->proximo ? novo->proximo->valor : -1) << endl;
             }
         }
     }
 
-    // Impressão da lista — mesmo funcionamento, agora como método
+    // Impressão da lista — agora como método
     void imprimirLista() {
         Elemento* atual = inicio;
         while (atual) {
@@ -178,23 +178,23 @@ public:
 };
 
 int main() {
-    // Criação do objeto — substitui criarLista() da versão C
+    // Criação do objeto — substitui criarLista() 
     ListaDuplamenteEncadeada lista;
 
-    // Insere 10 números aleatórios no início da lista (igual à versão original)
+    // Insere 10 números aleatórios no início da lista 
     for (int i = 0; i < 10; i++)
         lista.inserirInicio(rand());
 
     // Insere o valor 1000 na segunda posição
     lista.inserirPosicao(1000, 2);
 
-    // Imprime os elementos da lista
+    // Imprime os elementos da list
     cout << "Imprimir lista atual ..." << endl;
     lista.imprimirLista();
-
+    
     // Impressão reversa — opcional e equivalente à função comentada no código original
-    // cout << "Imprimir lista inversa ..." << endl;
-    // lista.imprimirListaInversa();
+    cout << "Imprimir lista inversa ..." << endl;
+    lista.imprimirListaInversa();
 
     return 0;
 }
