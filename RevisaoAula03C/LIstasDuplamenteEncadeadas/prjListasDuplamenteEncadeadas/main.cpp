@@ -193,8 +193,8 @@ int main() {
     lista.imprimirLista();
     
     // Impressão reversa — opcional e equivalente à função comentada no código original
-    cout << "Imprimir lista inversa ..." << endl;
-    lista.imprimirListaInversa();
+    // cout << "Imprimir lista inversa ..." << endl;
+    // lista.imprimirListaInversa();
 
     return 0;
 }
