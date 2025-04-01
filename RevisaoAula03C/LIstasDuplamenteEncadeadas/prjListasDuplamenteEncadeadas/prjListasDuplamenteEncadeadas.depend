@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1742870740 source:c:\revisaoaula03c\listasduplamenteencadeadas\prjlistasduplamenteencadeadas\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<cstdlib>
+
