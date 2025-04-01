@@ -156,8 +156,8 @@ public:
     void imprimirLista() {
         Elemento* atual = inicio;
         while (atual) {
-            printf("%d\n", atual->valor);
-        atual = atual->proximo;
+            cout << atual->valor << endl;
+            atual = atual->proximo;
         }
     }
 
@@ -165,8 +165,8 @@ public:
     void imprimirListaInversa() {
         Elemento* atual = fim;
         while (atual) {
-            printf("%d\n", atual->valor);
-        atual = atual->anterior;
+            cout << atual->valor << endl;
+            atual = atual->anterior;
         }
     }
 };
@@ -183,7 +183,7 @@ int main() {
     lista.inserirPosicao(1000, 2);
 
     // Imprime os valores da lista
-    printf("Imprimir lista atual ...\n");
+    cout << "Imprimir lista atual ..." << endl;
     lista.imprimirLista();
 
     // Imprime a lista ao contrário (opcional)
