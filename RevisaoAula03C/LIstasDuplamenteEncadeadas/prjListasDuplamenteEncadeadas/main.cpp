@@ -4,19 +4,19 @@ using namespace std;
 
 class ListaDuplamenteEncadeada {
 private:
-    // Estrutura de cada nó da lista
+    // Estrutura interna agora está encapsulada na classe (antes era struct fora do escopo)
     struct Elemento {
         int valor;
         Elemento* proximo;
         Elemento* anterior;
     };
 
-    // Ponteiros para o início e fim da lista
+    // Variáveis globais da versão original (inicio, fim, tamanho) agora são atributos privados
     Elemento* inicio;
     Elemento* fim;
     int tamanho;
 
-    // Função auxiliar para alocar um novo elemento na memória
+    // Função auxiliar para alocar um novo nó (usa new, diferente do malloc em C)
     Elemento* alocarMemoria(int valor) {
         Elemento* novo = new Elemento;
         novo->valor = valor;
@@ -26,14 +26,14 @@ private:
     }
 
 public:
-    // Construtor - inicializa a lista vazia
+    // Construtor: substitui a função criarLista() da versão original
     ListaDuplamenteEncadeada() {
         inicio = nullptr;
         fim = nullptr;
         tamanho = 0;
     }
 
-    // Destrutor - libera toda a memória alocada pela lista
+    // Destrutor: libera toda a memória da lista automaticamente (antes não era feito)
     ~ListaDuplamenteEncadeada() {
         while (inicio != nullptr) {
             Elemento* atual = inicio;
@@ -42,7 +42,7 @@ public:
         }
     }
 
-    // Remove o primeiro elemento da lista
+    // Método da classe para remover o primeiro elemento (agora com verificação de ponteiro)
     void removerInicio() {
         if (inicio != nullptr) {
             Elemento* atual = inicio;
@@ -58,7 +58,7 @@ public:
         }
     }
 
-    // Remove o último elemento da lista
+    // Método da classe para remover o último elemento
     void removerFim() {
         if (fim != nullptr) {
             Elemento* atual = fim;
@@ -74,7 +74,7 @@ public:
         }
     }
 
-    // Insere um novo elemento no início da lista
+    // Inserção no início — mesmo comportamento da versão C, agora encapsulado
     void inserirInicio(int valor) {
         Elemento* novo = alocarMemoria(valor);
 
@@ -90,7 +90,7 @@ public:
         tamanho++;
     }
 
-    // Insere um novo elemento no final da lista
+    // Inserção no fim — mesmo funcionamento da versão original
     void inserirFim(int valor) {
         Elemento* novo = alocarMemoria(valor);
 
@@ -106,8 +106,9 @@ public:
         tamanho++;
     }
 
+    // Inserção em posição específica — agora a lógica está completa e funcional
     void inserirPosicao(int valor, int posicao) {
-        posicao = posicao - 1; // ajusta para índice base 0
+        posicao = posicao - 1; // ajuste de índice para base 0
         Elemento* novo = alocarMemoria(valor);
     
         if (inicio == nullptr) {
@@ -117,7 +118,7 @@ public:
             Elemento* atual;
             int i;
     
-            // Decidindo o ponto de início
+            // Mesma lógica de escolha do ponto de início da busca que existia no código original
             if (posicao < (tamanho / 2)) {
                 atual = inicio;
                 i = 0;
@@ -125,8 +126,8 @@ public:
                 atual = fim;
                 i = tamanho;
             }
-    
-            // Percorrer para encontrar a posição (estilo original)
+
+            // Loop de busca adaptado da versão original
             while ((i != posicao) && (i >= 0) && (i <= tamanho)) {
                 if (i < posicao) {
                     i++;
@@ -136,28 +137,28 @@ public:
                     atual = atual->anterior;
                 }
             }
-    
+
+            // Inserção real do elemento, que não era feita corretamente na versão original
             if (atual != nullptr) {
-                // Inserir novo elemento antes de 'atual'
                 novo->anterior = atual->anterior;
                 novo->proximo = atual;
-    
+
                 if (atual->anterior != nullptr)
                     atual->anterior->proximo = novo;
                 else
                     inicio = novo;
-    
+
                 atual->anterior = novo;
                 tamanho++;
-    
+
+                // Impressão dos vizinhos — também estava presente na versão original
                 cout << "Valor antecessor ao que desejo inserir: " << (novo->anterior ? novo->anterior->valor : -1) << endl;
                 cout << "Valor proximo ao que desejo inserir: " << (novo->proximo ? novo->proximo->valor : -1) << endl;
             }
         }
     }
-    
 
-    // Imprime os valores da lista do início ao fim
+    // Impressão da lista — mesmo funcionamento, agora como método
     void imprimirLista() {
         Elemento* atual = inicio;
         while (atual) {
@@ -166,7 +167,7 @@ public:
         }
     }
 
-    // Imprime os valores da lista do fim ao início
+    // Impressão reversa — método opcional mantido
     void imprimirListaInversa() {
         Elemento* atual = fim;
         while (atual) {
@@ -177,21 +178,21 @@ public:
 };
 
 int main() {
-    // Cria uma lista duplamente encadeada
+    // Criação do objeto — substitui criarLista() da versão C
     ListaDuplamenteEncadeada lista;
 
-    // Insere 10 valores aleatórios no início da lista
+    // Insere 10 números aleatórios no início da lista (igual à versão original)
     for (int i = 0; i < 10; i++)
         lista.inserirInicio(rand());
 
-    // Insere o valor 1000 na posição 2
+    // Insere o valor 1000 na segunda posição
     lista.inserirPosicao(1000, 2);
 
-    // Imprime os valores da lista
+    // Imprime os elementos da lista
     cout << "Imprimir lista atual ..." << endl;
     lista.imprimirLista();
 
-    // Imprime a lista ao contrário (opcional)
+    // Impressão reversa — opcional e equivalente à função comentada no código original
     // cout << "Imprimir lista inversa ..." << endl;
     // lista.imprimirListaInversa();
 
